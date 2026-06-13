@@ -1,14 +1,24 @@
-from django.test import TestCase
-from .models import SalesRepresentative
+from rest_framework.test import APITestCase
+from rest_framework import status
 
-# Create your tests here.
 
-class SalesRepresentativeTest(TestCase):
+class SalesRepresentativeAPITest(APITestCase):
 
-    def test_sales_rep_creation(self):
+    def test_create_sales_rep(self):
 
-        rep = SalesRepresentative.objects.create(
-            name="Sai"
+        data = {
+            "name": "Sai",
+            "email": "sai@gmail.com",
+            "password": "123456"
+        }
+
+        response = self.client.post(
+            "/sales-representatives/",
+            data,
+            format="json"
         )
 
-        self.assertEqual(rep.name, "Sai")
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )

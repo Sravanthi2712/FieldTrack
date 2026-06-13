@@ -1,15 +1,24 @@
-from django.test import TestCase
-from .models import Customer
+from rest_framework.test import APITestCase
+from rest_framework import status
 
-# Create your tests here.
-class CustomerModelTest(TestCase):
 
-    def test_customer_creation(self):
+class CustomerAPITest(APITestCase):
 
-        customer = Customer.objects.create(
-            name="ABC Store",
-            latitude=16.502,
-            longitude=80.648
+    def test_create_customer(self):
+
+        data = {
+            "name": "ABC Store",
+            "latitude": 16.502,
+            "longitude": 80.648
+        }
+
+        response = self.client.post(
+            "/customers/",
+            data,
+            format="json"
         )
 
-        self.assertEqual(customer.name, "ABC Store")
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )

@@ -1,16 +1,14 @@
-from django.test import TestCase
-
-# Create your tests here.
-from django.test import TestCase
+from rest_framework.test import APITestCase
+from rest_framework import status
 
 from customers.models import Customer
 from sales_representatives.models import SalesRepresentative
-from visits.models import Visit
 
 
-class VisitModelTest(TestCase):
+class CheckInAPITest(APITestCase):
 
     def setUp(self):
+
         self.customer = Customer.objects.create(
             name="ABC Store",
             latitude=16.502,
@@ -18,31 +16,55 @@ class VisitModelTest(TestCase):
         )
 
         self.sales_rep = SalesRepresentative.objects.create(
-            name="Sai"
+            name="Sai",
+            email="sai@gmail.com",
+            password="123456"
         )
 
-    def test_valid_visit_creation(self):
+    def test_valid_checkin(self):
 
-        visit = Visit.objects.create(
-            sales_rep=self.sales_rep,
-            customer=self.customer,
-            checkin_latitude=16.502,
-            checkin_longitude=80.648,
-            distance_in_meters=0
+        data = {
+            "sales_rep_id": self.sales_rep.id,
+            "customer_id": self.customer.id,
+            "latitude": 16.502,
+            "longitude": 80.648
+        }
+
+        response = self.client.post(
+            "/visits/check-in/",
+            data,
+            format="json"
         )
 
         self.assertEqual(
-            visit.customer.name,
-            "ABC Store"
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+
+        self.assertTrue(
+            response.data["success"]
+        )
+
+    def test_invalid_checkin(self):
+
+        data = {
+            "sales_rep_id": self.sales_rep.id,
+            "customer_id": self.customer.id,
+            "latitude": 16.700,
+            "longitude": 80.900
+        }
+
+        response = self.client.post(
+            "/visits/check-in/",
+            data,
+            format="json"
         )
 
         self.assertEqual(
-            visit.sales_rep.name,
-            "Sai"
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST
         )
 
-    def test_invalid_distance(self):
-
-        distance = 500
-
-        self.assertTrue(distance > 200)
+        self.assertFalse(
+            response.data["success"]
+        )
