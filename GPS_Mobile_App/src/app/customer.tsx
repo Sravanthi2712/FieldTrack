@@ -144,8 +144,6 @@ export default function CustomerScreen() {
         style={styles.input}
       />
 
-      <Text>Latitude: {latitude}</Text>
-      <Text>Longitude: {longitude}</Text>
 
       <Button
         title="Get Current Location"
