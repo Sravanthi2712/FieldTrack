@@ -1,4 +1,4 @@
-import { View, Button } from "react-native";
+import { View, Button, Text } from "react-native";
 import { router } from "expo-router";
 
 export default function HomeScreen() {
@@ -11,6 +11,18 @@ export default function HomeScreen() {
         padding: 20,
       }}
     >
+    <View>
+      <Text
+          style={{
+          fontFamily: "sans-serif",
+          fontSize: 24,
+          textAlign: "center",
+          padding: 20,
+          fontWeight: "bold",
+        }}>
+            GPS Based Visit Validation System
+        </Text>
+    </View>
       <Button
         title="Customers"
         onPress={() => router.push("/customer")}

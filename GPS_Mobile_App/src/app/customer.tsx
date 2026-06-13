@@ -1,20 +1,122 @@
+import * as Location from "expo-location";
 import { useState } from "react";
 import {
   View,
   TextInput,
   Button,
-  StyleSheet
+  StyleSheet,
+  Alert,
+  Text,
 } from "react-native";
 
 export default function CustomerScreen() {
-
   const [name, setName] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
+  const getCurrentLocation = async () => {
+    console.log("Function Started");
+    Alert.alert("Function Started");
+    
+    try {
+      // Check GPS
+      const enabled = await Location.hasServicesEnabledAsync();
+
+      if (!enabled) {
+        Alert.alert("Error", "Please turn on GPS");
+        return;
+      }
+
+      // Request permission
+      const { status } =
+        await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission Denied",
+          "Location permission is required."
+        );
+        return;
+      }
+
+      // Get location
+      const location =
+        await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.High,
+        });
+      Alert.alert(
+        "Location Found",
+        `${location.coords.latitude}, ${location.coords.longitude}`
+      );
+
+      const lat =
+        location.coords.latitude.toString();
+
+      const lng =
+        location.coords.longitude.toString();
+
+      setLatitude(lat);
+      setLongitude(lng);
+
+      console.log("Latitude:", lat);
+      console.log("Longitude:", lng);
+    } catch (error) {
+      console.log(error);
+      Alert.alert(
+        "Error",
+        "Unable to get current location."
+      );
+    }
+  };
+
+  const createCustomer = async () => {
+  try {
+    const response = await fetch(
+      "http://10.167.137.110:8000/customers/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (response.ok) {
+      Alert.alert(
+        "Success",
+        "Customer Created Successfully"
+      );
+
+      setName("");
+      setLatitude("");
+      setLongitude("");
+    } else {
+      Alert.alert(
+        "Error",
+        JSON.stringify(data)
+      );
+    }
+  } catch (error) {
+    console.log(error);
+
+    Alert.alert(
+      "Error",
+      "Could not connect to server"
+    );
+  }
+};
+
   return (
     <View style={styles.container}>
-
       <TextInput
         placeholder="Customer Name"
         value={name}
@@ -26,6 +128,7 @@ export default function CustomerScreen() {
         placeholder="Latitude"
         value={latitude}
         onChangeText={setLatitude}
+        //editable={false}
         style={styles.input}
       />
 
@@ -33,14 +136,26 @@ export default function CustomerScreen() {
         placeholder="Longitude"
         value={longitude}
         onChangeText={setLongitude}
+        //editable={false}
         style={styles.input}
+      />
+
+      <Text>Latitude: {latitude}</Text>
+      <Text>Longitude: {longitude}</Text>
+
+      <Button
+        title="Get Current Location"
+        onPress={() => {
+          console.log("Button Clicked");
+          Alert.alert("Button Clicked");
+          getCurrentLocation();
+        }}
       />
 
       <Button
         title="Create Customer"
-        onPress={() => {}}
+        onPress={createCustomer}
       />
-
     </View>
   );
 }
@@ -50,11 +165,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     gap: 10,
+    justifyContent: "center",
   },
 
   input: {
     borderWidth: 1,
-    padding: 10,
+    borderColor: "#ccc",
+    padding: 12,
     borderRadius: 5,
   },
 });

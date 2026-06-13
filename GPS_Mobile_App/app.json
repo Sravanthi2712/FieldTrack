@@ -24,6 +24,13 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission":
+            "Allow FieldTrack to access your location."
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
@@ -36,6 +43,7 @@
         }
       ]
     ],
+    
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
