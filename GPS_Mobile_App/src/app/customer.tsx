@@ -103,7 +103,7 @@ export default function CustomerScreen() {
       setLatitude("");
       setLongitude("");
     } else {
-      const errorMessage = Object.entries(data)
+      const errorMessage = Object.entries(data as Record<string, string[]>)
     .map(([field, errors]) => `${field}: ${errors.join(", ")}`)
     .join(" | ");
 

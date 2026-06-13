@@ -16,6 +16,14 @@ export default function SalesRepresentativeScreen() {
   const [password, setPassword] = useState("");
 
   const createSalesRepresentative = async () => {
+    if (!name.trim()) {
+      Toast.show({
+        type: "error",
+        text1: "Validation Error",
+        text2: "Sales Representative name cannot be empty",
+      });
+      return;
+    }
     try {
 
       const response = await fetch(

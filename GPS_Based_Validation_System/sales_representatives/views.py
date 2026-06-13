@@ -5,6 +5,6 @@ from .serializers import SalesRepresentativeSerializer
 
 # Create your views here.
 
-class SalesRepresentativeCreateView(generics.CreateAPIView):
+class SalesRepresentativeCreateView(generics.ListCreateAPIView):
     queryset = SalesRepresentative.objects.all()
     serializer_class = SalesRepresentativeSerializer

@@ -9,7 +9,7 @@ import { BASE_URL } from "../../config";
 
 export default function VisitHistoryScreen() {
 
-  const [visits, setVisits] = useState([]);
+  const [visits, setVisits] = useState<any[]>([]);
 
   const fetchVisits = async () => {
     try {
