@@ -74,9 +74,7 @@ POST /sales-representatives/
 
 ```json
 {
-    "name": "Sai",
-    "email": "sai@example.com",
-    "password": "password123"
+    "name": "Sai"
 }
 ```
 
@@ -86,7 +84,6 @@ POST /sales-representatives/
 {
     "id": 1,
     "name": "Sai",
-    "email": "sai@example.com",
     "created_at": "2026-06-09T15:00:00Z"
 }
 ```

@@ -80,8 +80,6 @@ The system calculates the distance between the customer's registered location an
 | ---------- | -------- |
 | id         | Integer  |
 | name       | String   |
-| email      | String   |
-| password   | String   |
 | created_at | DateTime |
 
 ### Visits
