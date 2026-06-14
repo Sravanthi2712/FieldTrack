@@ -1,56 +1,63 @@
-# Welcome to your Expo app 👋
+# FieldTrack Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is the mobile companion application for **FieldTrack - GPS Based Visit Validation System**. Built using React Native and Expo, this app allows sales representatives to register customer stores, fetch real-time GPS locations, and perform validated check-ins. It also features an Administrator view to create representatives and monitor check-in logs.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
+* **JWT Secure Auth**: Distinct views for Administrator and Sales Representative roles.
+* **Real-Time GPS Location**: Integrates with device GPS (`expo-location`) to fetch coordinates automatically.
+* **Customer Registration**: Register new customer stores along with their GPS locations.
+* **Validated Check-In**: Check in at customer stores. The check-in is validated by the server and allowed only if the representative is within **200 meters** of the store.
+* **Dashboard Summary**: Real-time counter of total customers, representatives, and visits.
+* **Visit Logs**: Display historical check-in data with precise time and computed distance metrics.
+
+---
+
+## Directory Structure
+
+* `/src/app/` - Expo Router file-based screens:
+  * `index.tsx`: Main dashboard and navigation menu (stats summary).
+  * `login.tsx`: Login and Register portal with Admin/Sales Rep toggle.
+  * `customer.tsx`: Screen to add/register a customer store.
+  * `sales-representative.tsx`: Screen for Admins to create representative accounts.
+  * `check-in.tsx`: Location capture and validation check-in screen.
+  * `visit-history.tsx`: List of logs of completed visits.
+  * `_layout.tsx`: Root layout with context provider for JWT authentication and session storage.
+* `config.js` - API settings defining the backend base server URL.
+
+---
+
+## Prerequisites
+
+Ensure you have **Node.js** (v18+) and **npm** installed.
+
+---
+
+## Setup Instructions
+
+1. **Install Dependencies:**
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Configure API Endpoint:**
+   Before running the app, update the backend API endpoint to point to your Django development server.
+   Open [config.js](file:///E:/FieldTrack/GPS_Mobile_App/config.js):
+   ```javascript
+   export const BASE_URL = "http://<YOUR_IP_ADDRESS>:8000";
+   ```
+   * **Android Emulator**: Keep `http://10.0.2.2:8000` (refers to host computer's localhost).
+   * **iOS Simulator / Localhost**: Use `http://localhost:8000`.
+   * **Physical Phone (Expo Go)**: Use your computer's local network IP address (e.g. `http://192.168.1.50:8000`). Make sure your phone and computer are on the same Wi-Fi network.
 
+3. **Start the Expo Server:**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+4. **Launch the App:**
+   * **Physical Device**: Download the **Expo Go** app from the App Store or Google Play Store. Scan the QR code printed in the terminal console.
+   * **Android Emulator**: Press `a` in the terminal command prompt (requires Android Studio emulator to be running).
+   * **iOS Simulator**: Press `i` in the terminal command prompt (macOS only, requires Xcode).
