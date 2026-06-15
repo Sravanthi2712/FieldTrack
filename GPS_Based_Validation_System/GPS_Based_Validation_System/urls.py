@@ -26,11 +26,7 @@ urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
     path('customers/', include('customers.urls')),
-    path('customers', include('customers.urls')),
     path('sales-representatives/', include('sales_representatives.urls')),
-    path('sales-representatives', include('sales_representatives.urls')),
     path('visits/', include('visits.urls')),
-    path('visits', include('visits.urls')),
     path('checkin/', CheckInView.as_view(), name='root-check-in'),
-    path('checkin', CheckInView.as_view(), name='root-check-in-no-slash'),
 ]

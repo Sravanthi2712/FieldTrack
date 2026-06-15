@@ -63,7 +63,7 @@ def run_tests():
         "latitude": 16.502,
         "longitude": 80.648
     }
-    status, cust_res = make_request("/customers", "POST", cust_data, token=admin_token)
+    status, cust_res = make_request("/customers/", "POST", cust_data, token=admin_token)
     print(f"Status: {status}")
     print(f"Response: {json.dumps(cust_res, indent=2)}\n")
     customer_id = cust_res.get("id") if cust_res else None
@@ -75,7 +75,7 @@ def run_tests():
         "latitude": 16.502,
         "longitude": 80.648
     }
-    status, checkin_res = make_request("/checkin", "POST", checkin_data, token=rep_token)
+    status, checkin_res = make_request("/checkin/", "POST", checkin_data, token=rep_token)
     print(f"Status: {status}")
     print(f"Response: {json.dumps(checkin_res, indent=2)}\n")
 
@@ -86,25 +86,25 @@ def run_tests():
         "latitude": 16.700,
         "longitude": 80.900
     }
-    status, invalid_res = make_request("/checkin", "POST", invalid_checkin_data, token=rep_token)
+    status, invalid_res = make_request("/checkin/", "POST", invalid_checkin_data, token=rep_token)
     print(f"Status: {status}")
     print(f"Response: {json.dumps(invalid_res, indent=2)}\n")
 
     # 6. Admin attempts to Check-In (Should fail - Role-Based Access Control)
     print("6. Admin attempting to Check-In (Should be forbidden)...")
-    status, forbidden_res = make_request("/checkin", "POST", checkin_data, token=admin_token)
+    status, forbidden_res = make_request("/checkin/", "POST", checkin_data, token=admin_token)
     print(f"Status: {status}")
     print(f"Response: {json.dumps(forbidden_res, indent=2)}\n")
 
     # 7. Sales Rep fetches Visit History (Should see only their visits)
     print("7. Sales Representative fetching Visit History...")
-    status, rep_history = make_request("/visits", "GET", token=rep_token)
+    status, rep_history = make_request("/visits/", "GET", token=rep_token)
     print(f"Status: {status}")
     print(f"Response: {json.dumps(rep_history, indent=2)}\n")
 
     # 8. Admin fetches Visit History (Should see all visits)
     print("8. Admin fetching Visit History...")
-    status, admin_history = make_request("/visits", "GET", token=admin_token)
+    status, admin_history = make_request("/visits/", "GET", token=admin_token)
     print(f"Status: {status}")
     print(f"Response: {json.dumps(admin_history, indent=2)}\n")
 
