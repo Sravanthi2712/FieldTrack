@@ -6,9 +6,6 @@ The distance is calculated using the **Haversine Formula**. A visit is successfu
 
 ---
 
-<<<<<<< HEAD
-## Key Features
-=======
 ## Submission Branch
 
 The completed assignment solution is available in the final-assignment branch.
@@ -24,7 +21,6 @@ Please review the implementation from the final-assignment branch, which contain
 ---
 
 ## Features
->>>>>>> a730bf11f113248d5a0908f9ff58d89b34b78fbb
 
 ### 👥 Customer Management
 * Create and store customer records with name and GPS coordinates (Latitude & Longitude).
