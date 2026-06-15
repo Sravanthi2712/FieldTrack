@@ -155,7 +155,7 @@ FieldTrack/
    ```
 
 3. **Configure the Backend API URL:**
-   Open [config.js](file:///E:/FieldTrack/GPS_Mobile_App/config.js) and update `BASE_URL` with your local development environment IP:
+   Open [config.js] and update `BASE_URL` with your local development environment IP:
    * **Android Emulator:** Keep `http://10.0.2.2:8000` (Android redirects this to host localhost).
    * **iOS Simulator / Localhost:** Use `http://localhost:8000` or `http://127.0.0.1:8000`.
    * **Physical Device (Expo Go):** Find your computer's local network IP (e.g., `192.168.1.10`) and set it:
@@ -223,6 +223,13 @@ The test suite validates:
 * Customer Creation & coordinate boundaries (-90 to 90 latitude, -180 to 180 longitude).
 * Sales Representative Creation & registration rules.
 * Visit creation and correct distance calculation boundary (within 200m accepted; > 200m rejected).
+
+---
+
+## 📸 Screen Gallery
+| Admin Dashboard | GPS Visit Check-In | Visit History Logs |
+| :---: | :---: | :---: |
+| ![Admin Dashboard](Screenshots/Admin-Dashboard.png) | ![GPS Check-In](Screenshots/Check-In.png) | ![Visit History](Screenshots/Visit-History.png) 
 
 ---
 
